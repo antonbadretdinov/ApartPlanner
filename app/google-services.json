@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "944474011342",
+    "firebase_url": "https://apartplanner-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "apartplanner",
+    "storage_bucket": "apartplanner.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:944474011342:android:ed5f3880d5dcea2ef2029f",
+        "android_client_info": {
+          "package_name": "com.example.apartplanner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "944474011342-cs4egm6e5tlu9v14ch9ciaq213ck5vlc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDk_LiulQIbBPKo6SIIawQBv9Rvw_q6cZM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "944474011342-cs4egm6e5tlu9v14ch9ciaq213ck5vlc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:944474011342:android:462d7f191fb60c23f2029f",
+        "android_client_info": {
+          "package_name": "com.example.databasetest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "944474011342-cs4egm6e5tlu9v14ch9ciaq213ck5vlc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDk_LiulQIbBPKo6SIIawQBv9Rvw_q6cZM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "944474011342-cs4egm6e5tlu9v14ch9ciaq213ck5vlc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

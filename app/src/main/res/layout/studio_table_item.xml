@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.widget.TableLayout
+    android:focusableInTouchMode="true"
+    android:descendantFocusability="beforeDescendants"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TableRow
+        android:id="@+id/tableRowUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:id="@+id/editNameStudio"
+            android:hint="@string/studioNumber"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:background="@drawable/borders"
+            android:paddingVertical="15dp"
+            android:paddingHorizontal="10dp"/>
+        <EditText
+            android:inputType="number"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:id="@+id/editSizeStudio"
+            android:hint="@string/studioSize"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:background="@drawable/borders"
+            android:paddingVertical="15dp"
+            android:paddingHorizontal="10dp"/>
+
+        <EditText
+            android:id="@+id/editStateStudio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/borders"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:hint="@string/studioPrice"
+            android:inputType="numberDecimal"
+            android:paddingVertical="15dp"
+            android:paddingHorizontal="10dp"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+    </TableRow>
+</android.widget.TableLayout>

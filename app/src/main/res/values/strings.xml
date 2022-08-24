@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">ApartPlanner</string>
+    <string name="adressHintText">Адрес</string>
+    <string name="btnChooseFile">Выберите файл</string>
+    <string name="studioNumber">Студия №</string>
+    <string name="studioSize">Площадь, м^2</string>
+    <string name="studioPrice">Цена,тыс.руб</string>
+    <string name="saveFile">Сохранить</string>
+    <string name="logOut">Выйти</string>
+    <string name="enterKeyHintText">Введите ключ доступа</string>
+    <string name="logIn">Войти</string>
+    <string name="makeNew">Создать новый адрес</string>
+    <string name="inputCountOf">Введите кол-во студий</string>
+</resources>
