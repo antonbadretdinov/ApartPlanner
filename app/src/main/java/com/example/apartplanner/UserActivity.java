@@ -9,23 +9,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.apartplanner.adapter.AdressAdapter;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +35,7 @@ public class UserActivity extends AppCompatActivity {
     DatabaseReference databaseReference;
     ValueEventListener dBListener;
 
-    List<UploadImageActivity> uploadList;
+    List<Address> uploadList;
 
     Toolbar toolbar;
 
@@ -58,11 +53,11 @@ public class UserActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.userRecycleView);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this,RecyclerView.HORIZONTAL,false));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
 
         uploadList = new ArrayList<>();
 
-        adressAdapter = new AdressAdapter(UserActivity.this,uploadList);
+        adressAdapter = new AdressAdapter(UserActivity.this, uploadList);
         recyclerView.setAdapter(adressAdapter);
 
         databaseReference = FirebaseDatabase.getInstance().getReference("uploads");
@@ -73,8 +68,8 @@ public class UserActivity extends AppCompatActivity {
 
                 uploadList.clear();
 
-                for (DataSnapshot postSnapshot : snapshot.getChildren()){
-                    UploadImageActivity upload = postSnapshot.getValue(UploadImageActivity.class);
+                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+                    Address upload = postSnapshot.getValue(Address.class);
                     uploadList.add(upload);
                 }
 
@@ -91,12 +86,11 @@ public class UserActivity extends AppCompatActivity {
         });
 
 
-
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_user,menu);
+        getMenuInflater().inflate(R.menu.menu_user, menu);
         return true;
     }
 

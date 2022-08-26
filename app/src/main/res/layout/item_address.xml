@@ -40,37 +40,42 @@
 
         <TextView
             android:background="@drawable/borders"
-            android:paddingVertical="15dp"
             android:paddingHorizontal="10dp"
+            android:paddingVertical="15dp"
             android:text="@string/studioNumber"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
         <TextView
             android:background="@drawable/borders"
-            android:paddingVertical="15dp"
             android:paddingHorizontal="10dp"
+            android:paddingVertical="15dp"
             android:text="@string/studioSize"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
         <TextView
             android:background="@drawable/borders"
-            android:paddingVertical="15dp"
             android:paddingHorizontal="10dp"
+            android:paddingVertical="15dp"
             android:text="@string/studioPrice"
             android:textColor="@color/black"
             android:textSize="20sp" />
     </TableRow>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:descendantFocusability="afterDescendants"
         android:id="@+id/recyclerStudio"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="5dp"
+        android:descendantFocusability="afterDescendants"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/tableRow"
         app:layout_constraintStart_toStartOf="@+id/tableRow"
-        app:layout_constraintTop_toBottomOf="@+id/tableRow" />
+        app:layout_constraintTop_toBottomOf="@+id/tableRow"
+        tools:listitem="@layout/studio_table_item" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

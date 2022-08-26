@@ -1,14 +1,10 @@
 package com.example.apartplanner;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.AttributeSet;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -17,8 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.apartplanner.adapter.AdminAdapter;
 import com.example.apartplanner.adapter.StudioAdminAdapter;
@@ -36,9 +32,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class AdminActivity extends AppCompatActivity implements AdminAdapter.OnItemClickListener{
+public class AdminActivity extends AppCompatActivity implements AdminAdapter.OnItemClickListener {
 
-    RecyclerView recyclerView;
+    ViewPager2 viewPager;
     AdminAdapter adminAdapter;
     ProgressBar progressCircle;
 
@@ -46,11 +42,7 @@ public class AdminActivity extends AppCompatActivity implements AdminAdapter.OnI
     DatabaseReference databaseReference;
     ValueEventListener dBListener;
 
-    List<UploadImageActivity> uploadList;
-
-    RecyclerView recyclerViewStudio;
-    StudioAdminAdapter studioAdminAdapter;
-    ArrayList<Studio> studioList;
+    List<Address> uploadList;
 
     Toolbar toolbar;
     private Object AdminAdapter;
@@ -59,7 +51,7 @@ public class AdminActivity extends AppCompatActivity implements AdminAdapter.OnI
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.admin_layout);
+        setContentView(R.layout.activity_admin);
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -68,18 +60,11 @@ public class AdminActivity extends AppCompatActivity implements AdminAdapter.OnI
 
         progressCircle = findViewById(R.id.progressCircleAdmin);
 
-        recyclerView = findViewById(R.id.adressPageRecycler);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this,RecyclerView.HORIZONTAL,false));
-
-
-        studioList = new ArrayList<>();
-
-
+        viewPager = findViewById(R.id.viewPager);
 
         uploadList = new ArrayList<>();
-        adminAdapter = new AdminAdapter(AdminActivity.this,uploadList);
-        recyclerView.setAdapter(adminAdapter);
+        adminAdapter = new AdminAdapter(uploadList);
+        viewPager.setAdapter(adminAdapter);
         adminAdapter.setOnItemClickListener(AdminActivity.this);
 
         storage = FirebaseStorage.getInstance();
@@ -89,16 +74,15 @@ public class AdminActivity extends AppCompatActivity implements AdminAdapter.OnI
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 uploadList.clear();
-                for (DataSnapshot postSnapshot : snapshot.getChildren()){
-                    UploadImageActivity upload = postSnapshot.getValue(UploadImageActivity.class);
-                    assert upload != null;
-                    studioList = upload.getStudioList();
-                    upload.setKey(postSnapshot.getKey());
-                    uploadList.add(upload);
+                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+                    Address address = postSnapshot.getValue(Address.class);
+                    if (address == null) continue;
+//                    studioList = upload.getStudioList();
+                    address.setKey(postSnapshot.getKey());
+                    uploadList.add(address);
                 }
                 adminAdapter.setKey(snapshot.getKey());
                 adminAdapter.notifyDataSetChanged();
-                adminAdapter.setStudios(studioList);
                 progressCircle.setVisibility(View.INVISIBLE);
             }
 
@@ -112,7 +96,7 @@ public class AdminActivity extends AppCompatActivity implements AdminAdapter.OnI
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_admin,menu);
+        getMenuInflater().inflate(R.menu.menu_admin, menu);
         return true;
     }
 
@@ -131,7 +115,7 @@ public class AdminActivity extends AppCompatActivity implements AdminAdapter.OnI
 
     @Override
     public void onDeleteClick(int position) {
-        UploadImageActivity selectedItem = uploadList.get(position);
+        Address selectedItem = uploadList.get(position);
         final String selectedKey = selectedItem.getKey();
 
         StorageReference storageRef = storage.getReferenceFromUrl(selectedItem.getImageUrl());

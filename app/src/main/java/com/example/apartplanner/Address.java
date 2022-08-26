@@ -6,10 +6,10 @@ import com.google.firebase.database.Exclude;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UploadImageActivity {
+public class Address {
+    private String mKey;
     private String mName;
     private String mImageUrl;
-    private String mKey;
     private ArrayList<Studio> studioList;
 
     public String getName() {
@@ -36,8 +36,11 @@ public class UploadImageActivity {
         return studioList;
     }
 
-    public UploadImageActivity(String name, String imageUrl, ArrayList<Studio> studioList) {
-        if(name.trim().equals("")){
+    public Address() {
+    }
+
+    public Address(String name, String imageUrl, ArrayList<Studio> studioList) {
+        if (name.trim().equals("")) {
             name = "No Name";
         }
 
@@ -47,16 +50,14 @@ public class UploadImageActivity {
     }
 
     @Exclude
-    public String getKey(){
+    public String getKey() {
         return mKey;
     }
 
     @Exclude
-    public void setKey(String key){
+    public void setKey(String key) {
         mKey = key;
     }
 
-    public UploadImageActivity() {
-    }
 
 }

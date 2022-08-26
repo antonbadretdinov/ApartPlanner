@@ -1,12 +1,7 @@
 package com.example.apartplanner.adapter;
 
 import android.content.Context;
-import android.util.Log;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -16,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.apartplanner.R;
-import com.example.apartplanner.UploadImageActivity;
+import com.example.apartplanner.Address;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -24,10 +19,10 @@ import java.util.List;
 public class AdressAdapter extends RecyclerView.Adapter<AdressAdapter.ImageViewHolder> {//режим админа
 
     Context mContext;
-    List<UploadImageActivity> mUploads;
+    List<Address> mUploads;
     /*OnItemClickListener mListener;*/
 
-    public AdressAdapter(Context context, List<UploadImageActivity> uploads) {
+    public AdressAdapter(Context context, List<Address> uploads) {
         mContext = context;
         mUploads = uploads;
     }
@@ -35,16 +30,16 @@ public class AdressAdapter extends RecyclerView.Adapter<AdressAdapter.ImageViewH
     @NonNull
     @Override
     public ImageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.user_item, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.item_address, parent, false);
         return new ImageViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ImageViewHolder holder, int position) {
-        UploadImageActivity uploadImageActivityCurrent = mUploads.get(position);
-        holder.textViewName.setText(uploadImageActivityCurrent.getName());
+        Address addressCurrent = mUploads.get(position);
+        holder.textViewName.setText(addressCurrent.getName());
         Picasso.with(mContext)
-                .load(uploadImageActivityCurrent.getImageUrl())
+                .load(addressCurrent.getImageUrl())
                 .placeholder(R.drawable.ic_launcher_background)
                 .fit()
                 .centerCrop()
