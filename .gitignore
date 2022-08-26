@@ -38,6 +38,8 @@ local.properties
 .idea/**/dynamic.xml
 .idea/**/uiDesigner.xml
 .idea/**/dbnavigator.xml
+.idea/misc.xml
+
 
 # Gradle
 .idea/**/gradle.xml
