@@ -1,8 +1,5 @@
 package com.example.apartplanner.adapter;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.util.AttributeSet;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -14,41 +11,25 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.apartplanner.R;
-import com.example.apartplanner.Address;
+import com.example.apartplanner.model.Address;
 import com.example.apartplanner.model.Studio;
-import com.google.firebase.database.DataSnapshot;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
-public class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.ImageViewHolder> {//режим создания адреса
-    List<Address> mUploads;
-    OnItemClickListener mListener;
-    DatabaseReference databaseReference;
-    String mKey;
-    String adressName;
+public class AdminAdapter extends FirebaseRecyclerAdapter<Address, AdminAdapter.ImageViewHolder> {//режим создания адреса
+    private final AdminAdapterEventListener listener;
 
-//    ArrayList<Studio> currentStudioList;
-
-
-    public void setKey(String key) {
-        this.mKey = key;
-    }
-
-
-    public AdminAdapter(List<Address> uploads) {
-        databaseReference = FirebaseDatabase.getInstance().getReference("uploads");
-        mUploads = uploads;
+    public AdminAdapter(FirebaseRecyclerOptions<Address> options, AdminAdapterEventListener listener) {
+        super(options);
+        this.listener = listener;
     }
 
     @NonNull
@@ -58,77 +39,26 @@ public class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.ImageViewHol
         return new ImageViewHolder(view);
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     @Override
-    public void onBindViewHolder(@NonNull ImageViewHolder holder, int position) {
-        Address addressCurrent = mUploads.get(position);
-
+    protected void onBindViewHolder(@NonNull ImageViewHolder holder, int position, @NonNull Address address) {
         holder.bind(
-                addressCurrent.getName(),
-                addressCurrent.getImageUrl(),
-                addressCurrent.getStudioList()
+                address.getName(),
+                address.getImageUrl(),
+                address.getStudioList()
         );
-        adressName = holder.textViewName.getText().toString();
     }
 
     @Override
-    public int getItemCount() {
-        if (mUploads != null) {
-            return mUploads.size();
-        } else {
-            return 0;
-        }
+    public void onDataChanged() {
+        listener.onDataChanged();
     }
 
-    private final StudioAdminAdapter.OnItemUpdateListener studioItemMenuListener = new StudioAdminAdapter.OnItemUpdateListener() {
-        @Override
-        public void onUpdate(Studio studio) {
-
-        }
-
-//        @Override
-//        public void onBooked(int position) {
-//
-//            if (!currentStudioList.isEmpty()) {
-//                currentStudioList.get(position).setState("бронь");
-//                updateStudios(currentStudioList);
-//                Log.d("MyLog", "booked " + ", positionStudio : " + position + ", adressKey : " + adressName + " , itemCount : " + getItemCount());
-//            }
-//
-//        }
-//
-//        @Override
-//        public void onSold(int position) {
-//            if (!currentStudioList.isEmpty()) {
-//                currentStudioList.get(position).setState("продано");
-//                updateStudios(currentStudioList);
-//                //Log.d("MyLog", "booked " + ", position : "+position + ", itemCount : "+getItemCount() + ", itemId : "+getItemId(position));
-//            }
-//        }
-    };
-
-    @SuppressLint("NotifyDataSetChanged")
-    public void updateStudios(ArrayList<Studio> studios) {
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    Address upload = dataSnapshot.getValue(Address.class);
-                    if (upload != null && upload.getName().equals(adressName)) {
-                        databaseReference.child(Objects.requireNonNull(dataSnapshot.getKey())).child("studioList").setValue(studios);
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-        notifyDataSetChanged();
+    @Override
+    public void onError(@NonNull DatabaseError e) {
+        listener.onError(e);
     }
 
-    public class ImageViewHolder extends RecyclerView.ViewHolder implements /*View.OnClickListener,*/ View.OnCreateContextMenuListener,
+    public class ImageViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener,
             MenuItem.OnMenuItemClickListener {
 
         private final TextView textViewName;
@@ -138,24 +68,23 @@ public class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.ImageViewHol
         public ImageViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            itemView.setOnCreateContextMenuListener(this);
             imageView = itemView.findViewById(R.id.imageUser);
             textViewName = itemView.findViewById(R.id.adressUserText);
             RecyclerView studioRecycler = itemView.findViewById(R.id.recyclerStudio);
-            itemView.setOnCreateContextMenuListener(this);
 
-            studioAdminAdapter = new StudioAdminAdapter(studioItemMenuListener);
+            studioAdminAdapter = new StudioAdminAdapter(studio ->
+                    listener.onStudioUpdate(getRef(getBindingAdapterPosition()), studio)
+            );
             studioRecycler.setAdapter(studioAdminAdapter);
         }
 
         public void bind(String name, String imageUrl, ArrayList<Studio> studios) {
-
             textViewName.setText(name);
-
             Picasso.with(itemView.getContext())
                     .load(imageUrl)
-                    .placeholder(R.drawable.ic_launcher_background)
-                    .fit()
-                    .centerCrop()
+//                    .placeholder(R.drawable.ic_launcher_background)
+//                    .centerCrop()
                     .into(imageView);
 
             studioAdminAdapter.submitList(studios);
@@ -170,11 +99,11 @@ public class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.ImageViewHol
 
         @Override
         public boolean onMenuItemClick(MenuItem menuItem) {
-            if (mListener != null) {
+            if (listener != null) {
                 int position = getBindingAdapterPosition();
                 if (position != RecyclerView.NO_POSITION) {
                     if (menuItem.getItemId() == 1) {
-                        mListener.onDeleteClick(position);
+                        listener.onDeleteClick(getItem(position), getRef(position));
                         return true;
                     }
                 }
@@ -184,12 +113,14 @@ public class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.ImageViewHol
         }
     }
 
-    public interface OnItemClickListener {
-        void onDeleteClick(int position);
-    }
+    public interface AdminAdapterEventListener {
+        void onDataChanged();
 
-    public void setOnItemClickListener(OnItemClickListener listener) {
-        mListener = listener;
+        void onError(DatabaseError e);
+
+        void onDeleteClick(Address address, DatabaseReference ref);
+
+        void onStudioUpdate(DatabaseReference addressRef, Studio studio);
     }
 
 }

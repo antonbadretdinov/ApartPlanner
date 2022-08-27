@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.apartplanner.R;
-import com.example.apartplanner.Address;
+import com.example.apartplanner.model.Address;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

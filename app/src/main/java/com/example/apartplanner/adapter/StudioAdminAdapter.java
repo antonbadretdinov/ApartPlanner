@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.apartplanner.R;
+import com.example.apartplanner.Utils;
 import com.example.apartplanner.model.Studio;
 
 public class StudioAdminAdapter extends ListAdapter<Studio, StudioAdminAdapter.StudioViewHolder> {
@@ -66,56 +67,27 @@ public class StudioAdminAdapter extends ListAdapter<Studio, StudioAdminAdapter.S
             size = itemView.findViewById(R.id.editSizeStudio);
             state = itemView.findViewById(R.id.editStateStudio);
 
-            name.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-
-                @Override
-                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                    getItem(getBindingAdapterPosition()).setName(name.getText().toString());
-                }
-
-                @Override
-                public void afterTextChanged(Editable editable) {}
+            Utils.setTextWatcher(name, (text, start, before, count) ->
+                    getItem(getBindingAdapterPosition()).setName(text.toString())
+            );
+            Utils.setTextWatcher(size, (text, start, before, count) ->
+                    getItem(getBindingAdapterPosition()).setSize(text.toString())
+            );
+            Utils.setTextWatcher(state, (text, start, before, count) -> {
+                getItem(getBindingAdapterPosition()).setState(text.toString());
+                changeRowColor(text.toString());
             });
 
-            size.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            Utils.OnDoneListener doneListener = text ->
+                    mListener.onUpdate(getItem(getBindingAdapterPosition()));
 
-                }
-
-                @Override
-                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                    getItem(getBindingAdapterPosition()).setSize(size.getText().toString());
-                }
-
-                @Override
-                public void afterTextChanged(Editable editable) {
-
-                }
-            });
-
-            state.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                }
-
-                @Override
-                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                    getItem(getBindingAdapterPosition()).setState(state.getText().toString());
-                    changeRowColor(state.getText().toString());
-                }
-
-                @Override
-                public void afterTextChanged(Editable editable) {
-
-                }
-            });
+            Utils.setOnDoneListener(name, doneListener);
+            Utils.setOnDoneListener(size, doneListener);
+            Utils.setOnDoneListener(state, doneListener);
 
             itemView.setOnCreateContextMenuListener(this);
         }
+
 
         public void bind(Studio studio) {
             name.setText(studio.getName());
@@ -177,6 +149,5 @@ public class StudioAdminAdapter extends ListAdapter<Studio, StudioAdminAdapter.S
     public interface OnItemUpdateListener {
         void onUpdate(Studio studio);
     }
-
 }
 

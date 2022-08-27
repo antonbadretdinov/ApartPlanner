@@ -2,6 +2,8 @@ package com.example.apartplanner.model;
 
 import androidx.annotation.NonNull;
 
+import com.google.firebase.database.Exclude;
+
 import java.util.Objects;
 
 public class Studio {
@@ -65,10 +67,12 @@ public class Studio {
         this.state = state;
     }
 
+    @Exclude
     public int getId() {
         return id;
     }
 
+    @Exclude
     public void setId(int id) {
         this.id = id;
     }

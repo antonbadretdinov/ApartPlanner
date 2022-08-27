@@ -1,10 +1,8 @@
-package com.example.apartplanner;
+package com.example.apartplanner.model;
 
-import com.example.apartplanner.model.Studio;
 import com.google.firebase.database.Exclude;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Address {
     private String mKey;
@@ -28,15 +26,15 @@ public class Address {
         mImageUrl = imageUrl;
     }
 
-    public void setStudioList(ArrayList<Studio> studioList) {
-        this.studioList = studioList;
-    }
-
     public ArrayList<Studio> getStudioList() {
         return studioList;
     }
 
-    public Address() {
+    public void setStudioList(ArrayList<Studio> studioList) {
+        this.studioList = studioList;
+    }
+
+    public Address() { // needs for Firebase
     }
 
     public Address(String name, String imageUrl, ArrayList<Studio> studioList) {

@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.widget.TableLayout
-    android:focusableInTouchMode="true"
-    android:descendantFocusability="beforeDescendants"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.widget.TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true">
 
     <TableRow
         android:id="@+id/tableRowUser"
@@ -14,26 +11,34 @@
         android:layout_height="wrap_content">
 
         <EditText
-            android:focusable="true"
-            android:focusableInTouchMode="true"
             android:id="@+id/editNameStudio"
-            android:hint="@string/studioNumber"
-            android:textSize="20sp"
-            android:textColor="@color/black"
             android:background="@drawable/borders"
-            android:paddingVertical="15dp"
-            android:paddingHorizontal="10dp"/>
-        <EditText
-            android:inputType="number"
             android:focusable="true"
             android:focusableInTouchMode="true"
-            android:id="@+id/editSizeStudio"
-            android:hint="@string/studioSize"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:background="@drawable/borders"
+            android:hint="@string/studioNumber"
+            android:imeOptions="actionDone"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:paddingHorizontal="10dp"
             android:paddingVertical="15dp"
-            android:paddingHorizontal="10dp"/>
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/editSizeStudio"
+            android:background="@drawable/borders"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:hint="@string/studioSize"
+            android:imeOptions="actionDone"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="15dp"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
 
         <EditText
             android:id="@+id/editStateStudio"
@@ -43,9 +48,12 @@
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:hint="@string/studioPrice"
+            android:imeOptions="actionDone"
+            android:importantForAutofill="no"
             android:inputType="numberDecimal"
-            android:paddingVertical="15dp"
             android:paddingHorizontal="10dp"
+            android:paddingVertical="15dp"
+            android:singleLine="true"
             android:textColor="@color/black"
             android:textSize="20sp" />
 

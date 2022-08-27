@@ -1,6 +1,5 @@
 package com.example.apartplanner;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,26 +12,21 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.apartplanner.adapter.AdminAdapter;
-import com.example.apartplanner.adapter.StudioAdminAdapter;
+import com.example.apartplanner.model.Address;
 import com.example.apartplanner.model.Studio;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.DataSnapshot;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
-public class AdminActivity extends AppCompatActivity implements AdminAdapter.OnItemClickListener {
+public class AdminActivity extends AppCompatActivity {
 
     ViewPager2 viewPager;
     AdminAdapter adminAdapter;
@@ -40,14 +34,36 @@ public class AdminActivity extends AppCompatActivity implements AdminAdapter.OnI
 
     FirebaseStorage storage;
     DatabaseReference databaseReference;
-    ValueEventListener dBListener;
-
-    List<Address> uploadList;
 
     Toolbar toolbar;
-    private Object AdminAdapter;
 
-    @SuppressLint("NotifyDataSetChanged")
+    AdminAdapter.AdminAdapterEventListener adapterEventListener = new AdminAdapter.AdminAdapterEventListener() {
+        @Override
+        public void onDataChanged() {
+            progressCircle.setVisibility(View.INVISIBLE);
+        }
+
+        @Override
+        public void onError(DatabaseError e) {
+            progressCircle.setVisibility(View.INVISIBLE);
+            Toast.makeText(AdminActivity.this, "Ошибка загрузки", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onDeleteClick(Address address, DatabaseReference ref) {
+            StorageReference storageRef = storage.getReferenceFromUrl(address.getImageUrl());
+            storageRef.delete().addOnSuccessListener(unused -> {
+                ref.removeValue();
+                Toast.makeText(AdminActivity.this, "Удалено", Toast.LENGTH_SHORT).show();
+            });
+        }
+
+        @Override
+        public void onStudioUpdate(DatabaseReference addressRef, Studio studio) {
+            addressRef.child("studioList").child(String.valueOf(studio.getId())).setValue(studio);
+        }
+    };
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,40 +78,29 @@ public class AdminActivity extends AppCompatActivity implements AdminAdapter.OnI
 
         viewPager = findViewById(R.id.viewPager);
 
-        uploadList = new ArrayList<>();
-        adminAdapter = new AdminAdapter(uploadList);
-        viewPager.setAdapter(adminAdapter);
-        adminAdapter.setOnItemClickListener(AdminActivity.this);
-
         storage = FirebaseStorage.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference("uploads");
-        dBListener = databaseReference.addValueEventListener(new ValueEventListener() {
-            @SuppressLint("NotifyDataSetChanged")
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                uploadList.clear();
-                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
-                    Address address = postSnapshot.getValue(Address.class);
-                    if (address == null) continue;
-//                    studioList = upload.getStudioList();
-                    address.setKey(postSnapshot.getKey());
-                    uploadList.add(address);
-                }
-                adminAdapter.setKey(snapshot.getKey());
-                adminAdapter.notifyDataSetChanged();
-                progressCircle.setVisibility(View.INVISIBLE);
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(AdminActivity.this, "Ошибка загрузки", Toast.LENGTH_SHORT).show();
-                progressCircle.setVisibility(View.INVISIBLE);
-            }
-        });
+        FirebaseRecyclerOptions<Address> options = new FirebaseRecyclerOptions.Builder<Address>()
+                .setQuery(databaseReference, snapshot -> {
+                    Address address = snapshot.getValue(Address.class);
+                    if (address == null)
+                        throw new NullPointerException(String.format("%s value is null", snapshot.getKey()));
+                    for (int i = 0; i < address.getStudioList().size(); i++) {
+                        address.getStudioList().get(i).setId(i);
+                    }
+                    return address;
+                })
+                .build();
+
+
+        adminAdapter = new AdminAdapter(options, adapterEventListener);
+        viewPager.setAdapter(adminAdapter);
+        adminAdapter.startListening();
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(@NonNull Menu menu) {
         getMenuInflater().inflate(R.menu.menu_admin, menu);
         return true;
     }
@@ -103,8 +108,9 @@ public class AdminActivity extends AppCompatActivity implements AdminAdapter.OnI
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.logOut) {
-            Intent intent = new Intent(this, UserActivity.class);
-            startActivity(intent);
+//            Intent intent = new Intent(this, UserActivity.class);
+//            startActivity(intent);
+            finish();
         }
         if (item.getItemId() == R.id.makeNew) {
             Intent intent = new Intent(this, AdressActivity.class);
@@ -114,26 +120,9 @@ public class AdminActivity extends AppCompatActivity implements AdminAdapter.OnI
     }
 
     @Override
-    public void onDeleteClick(int position) {
-        Address selectedItem = uploadList.get(position);
-        final String selectedKey = selectedItem.getKey();
-
-        StorageReference storageRef = storage.getReferenceFromUrl(selectedItem.getImageUrl());
-        storageRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void unused) {
-                databaseReference.child(selectedKey).removeValue();
-                Toast.makeText(AdminActivity.this, "Удалено", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-
-    @Override
     protected void onDestroy() {
         super.onDestroy();
-        databaseReference.removeEventListener(dBListener);
+        adminAdapter.stopListening();
     }
-
 }
 

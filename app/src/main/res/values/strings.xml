@@ -11,4 +11,5 @@
     <string name="logIn">Войти</string>
     <string name="makeNew">Создать новый адрес</string>
     <string name="inputCountOf">Введите кол-во студий</string>
+    <string name="address">Address</string>
 </resources>

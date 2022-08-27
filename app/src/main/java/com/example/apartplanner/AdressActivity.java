@@ -19,6 +19,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.apartplanner.model.Address;
 import com.example.apartplanner.model.Studio;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -163,7 +164,7 @@ public class AdressActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(@NonNull Menu menu) {
         getMenuInflater().inflate(R.menu.menu_make_new, menu);
         return true;
     }
@@ -171,8 +172,9 @@ public class AdressActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.logOut) {
-            Intent intent = new Intent(this, AdminActivity.class);
-            startActivity(intent);
+//            Intent intent = new Intent(this, AdminActivity.class);
+//            startActivity(intent);
+            finish();
         }
         return super.onOptionsItemSelected(item);
     }
