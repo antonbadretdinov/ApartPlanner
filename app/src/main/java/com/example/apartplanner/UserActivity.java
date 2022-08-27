@@ -16,9 +16,15 @@ import android.widget.Toast;
 import com.example.apartplanner.adapter.AddressAdapter;
 import com.example.apartplanner.model.Address;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Objects;
 
@@ -27,6 +33,8 @@ public class UserActivity extends AppCompatActivity {
     ViewPager2 viewPager;
     AddressAdapter addressAdapter;
     ProgressBar progressCircle;
+    FirebaseFirestore fStore;
+    FirebaseAuth fAuth;
 
     DatabaseReference databaseReference;
 
@@ -50,6 +58,9 @@ public class UserActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
+
+        fAuth = FirebaseAuth.getInstance();
+        fStore =FirebaseFirestore.getInstance();
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -80,8 +91,25 @@ public class UserActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.logIn) {
-            Intent intent = new Intent(this, EnterKeyActivity.class);
-            startActivity(intent);
+
+            DocumentReference df = fStore.collection("Users").document(Objects.requireNonNull(fAuth.getCurrentUser()).getUid());
+            df.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                @Override
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                    if(Boolean.TRUE.equals(documentSnapshot.getBoolean("isAdmin"))){
+                        Intent intent = new Intent(getApplicationContext(), AdminActivity.class);
+                        startActivity(intent);
+                    }else{
+                        Toast.makeText(UserActivity.this, "Ошибка доступа", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(UserActivity.this, "Ошибка доступа", Toast.LENGTH_SHORT).show();
+                }
+            });
+
         }
         return super.onOptionsItemSelected(item);
     }

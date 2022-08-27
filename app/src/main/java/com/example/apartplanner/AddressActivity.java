@@ -48,7 +48,6 @@ public class AddressActivity extends AppCompatActivity {
 
     EditText addressEditText;
 
-    Button logInBtn;
     Toolbar toolbar;
 
     EditText countOfStudios;
@@ -66,7 +65,6 @@ public class AddressActivity extends AppCompatActivity {
 
         studios = new ArrayList<>();
 
-        logInBtn = findViewById(R.id.logInButton);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setTitle("Создание нового адреса");

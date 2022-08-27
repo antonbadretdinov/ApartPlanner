@@ -12,4 +12,8 @@
     <string name="makeNew">Создать новый адрес</string>
     <string name="inputCountOf">Введите кол-во студий</string>
     <string name="address">Address</string>
+    <string name="signUp">Зарегистрироваться</string>
+    <string name="password">Пароль</string>
+    <string name="e_mail">Электронная почта</string>
+    <string name="helpTxt">Пароль должен содержать мин. 6 символов</string>
 </resources>
