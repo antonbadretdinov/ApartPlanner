@@ -1,10 +1,6 @@
 package com.example.apartplanner.adapter;
 
-import android.util.Log;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -67,7 +63,7 @@ public class AddressAdapter extends FirebaseRecyclerAdapter<Address, AddressAdap
             super(itemView);
 
             imageView = itemView.findViewById(R.id.imageUser);
-            textViewName = itemView.findViewById(R.id.adressUserText);
+            textViewName = itemView.findViewById(R.id.addressUserText);
             RecyclerView studioRecycler = itemView.findViewById(R.id.recyclerStudio);
 
             studioAdapter = new StudioAdapter();

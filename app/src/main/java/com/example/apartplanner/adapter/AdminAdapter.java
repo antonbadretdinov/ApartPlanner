@@ -70,7 +70,7 @@ public class AdminAdapter extends FirebaseRecyclerAdapter<Address, AdminAdapter.
 
             itemView.setOnCreateContextMenuListener(this);
             imageView = itemView.findViewById(R.id.imageUser);
-            textViewName = itemView.findViewById(R.id.adressUserText);
+            textViewName = itemView.findViewById(R.id.addressUserText);
             RecyclerView studioRecycler = itemView.findViewById(R.id.recyclerStudio);
 
             studioAdminAdapter = new StudioAdminAdapter(studio ->

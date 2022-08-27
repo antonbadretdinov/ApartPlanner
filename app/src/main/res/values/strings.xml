@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">ApartPlanner</string>
-    <string name="adressHintText">Адрес</string>
+    <string name="addressHintText">Адрес</string>
     <string name="btnChooseFile">Выберите файл</string>
     <string name="studioNumber">Студия №</string>
     <string name="studioSize">Площадь, м^2</string>

@@ -40,13 +40,13 @@ public class AddressActivity extends AppCompatActivity {
     Uri imgUri;
     Button chooseImageBtn;
     Button uploadBtn;
-    ImageView adressImg;
+    ImageView addressImg;
 
     StorageReference storageReference;
     DatabaseReference databaseReference;
     StorageTask uploadTask;
 
-    EditText adressEditText;
+    EditText addressEditText;
 
     Button logInBtn;
     Toolbar toolbar;
@@ -77,8 +77,8 @@ public class AddressActivity extends AppCompatActivity {
 
         chooseImageBtn = findViewById(R.id.btnChooseFile);
         uploadBtn = findViewById(R.id.uploadBtn);
-        adressImg = findViewById(R.id.imageAdress);
-        adressEditText = findViewById(R.id.adressEditText);
+        addressImg = findViewById(R.id.imageAddress);
+        addressEditText = findViewById(R.id.addressEditText);
 
 
         chooseImageBtn.setOnClickListener(new View.OnClickListener() {
@@ -100,7 +100,7 @@ public class AddressActivity extends AppCompatActivity {
                         }
                     }
                     //загрузить студии
-                    /*Intent intent = new Intent(AdressActivity.this,AdminActivity.class);
+                    /*Intent intent = new Intent(AddressActivity.this,AdminActivity.class);
                     intent.putExtra("countOfStudios",countOfStudios.getText().toString());
                     startActivity(intent);*/
                 }
@@ -123,7 +123,7 @@ public class AddressActivity extends AppCompatActivity {
                 data != null && data.getData() != null) {
             imgUri = data.getData();
 
-            Picasso.with(AddressActivity.this).load(imgUri).into(adressImg);
+            Picasso.with(AddressActivity.this).load(imgUri).into(addressImg);
         }
     }
 
@@ -145,7 +145,7 @@ public class AddressActivity extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(Uri uri) {
                                     String url = uri.toString();
-                                    Address upload = new Address(adressEditText.getText().toString().trim(), url, studios);
+                                    Address upload = new Address(addressEditText.getText().toString().trim(), url, studios);
                                     String uploadId = databaseReference.push().getKey();
                                     assert uploadId != null;
                                     databaseReference.child(uploadId).setValue(upload);

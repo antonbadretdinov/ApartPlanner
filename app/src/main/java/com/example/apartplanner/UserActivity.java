@@ -32,7 +32,7 @@ public class UserActivity extends AppCompatActivity {
 
     Toolbar toolbar;
 
-    AddressAdapter.AddressAdapterEventListener adapterEventListener = new AddressAdapter.AddressAdapterEventListener() {
+    private final AddressAdapter.AddressAdapterEventListener adapterEventListener = new AddressAdapter.AddressAdapterEventListener() {
         @Override
         public void onDataChanged() {
             progressCircle.setVisibility(View.INVISIBLE);

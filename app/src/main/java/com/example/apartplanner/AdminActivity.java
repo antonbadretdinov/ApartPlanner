@@ -37,7 +37,7 @@ public class AdminActivity extends AppCompatActivity {
 
     Toolbar toolbar;
 
-    AdminAdapter.AdminAdapterEventListener adapterEventListener = new AdminAdapter.AdminAdapterEventListener() {
+    private final AdminAdapter.AdminAdapterEventListener adapterEventListener = new AdminAdapter.AdminAdapterEventListener() {
         @Override
         public void onDataChanged() {
             progressCircle.setVisibility(View.INVISIBLE);

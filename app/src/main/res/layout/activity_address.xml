@@ -17,13 +17,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/adressEditText"
+        android:id="@+id/addressEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:autofillHints=""
         android:ems="10"
-        android:hint="@string/adressHintText"
+        android:hint="@string/addressHintText"
         android:inputType="textPersonName"
         android:minHeight="48dp"
         android:textColorHint="#757575"
@@ -32,13 +32,13 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <ImageView
-        android:id="@+id/imageAdress"
+        android:id="@+id/imageAddress"
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/adressEditText"
+        app:layout_constraintTop_toBottomOf="@+id/addressEditText"
         app:srcCompat="@drawable/ic_launcher_background" />
 
     <Button
@@ -47,7 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="@string/btnChooseFile"
-        app:layout_constraintStart_toStartOf="@+id/imageAdress"
+        app:layout_constraintStart_toStartOf="@+id/imageAddress"
         app:layout_constraintTop_toBottomOf="@+id/editCountStudios" />
 
     <Button
@@ -56,7 +56,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="@string/saveFile"
-        app:layout_constraintEnd_toEndOf="@+id/imageAdress"
+        app:layout_constraintEnd_toEndOf="@+id/imageAddress"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/btnChooseFile"
         app:layout_constraintTop_toBottomOf="@+id/editCountStudios" />
@@ -71,8 +71,8 @@
         android:inputType="number"
         android:minHeight="48dp"
         android:textColorHint="#757575"
-        app:layout_constraintEnd_toEndOf="@+id/imageAdress"
-        app:layout_constraintStart_toStartOf="@+id/imageAdress"
-        app:layout_constraintTop_toBottomOf="@+id/imageAdress" />
+        app:layout_constraintEnd_toEndOf="@+id/imageAddress"
+        app:layout_constraintStart_toStartOf="@+id/imageAddress"
+        app:layout_constraintTop_toBottomOf="@+id/imageAddress" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
