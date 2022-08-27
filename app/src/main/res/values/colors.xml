@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="transparent">#00000000</color>
+
+    <color name="fullscreen_image_background">#B3000000</color>
 </resources>

@@ -21,6 +21,7 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.squareup.picasso.Picasso;
+import com.stfalcon.imageviewer.StfalconImageViewer;
 
 import java.util.ArrayList;
 
@@ -77,6 +78,16 @@ public class AdminAdapter extends FirebaseRecyclerAdapter<Address, AdminAdapter.
                     listener.onStudioUpdate(getRef(getBindingAdapterPosition()), studio)
             );
             studioRecycler.setAdapter(studioAdminAdapter);
+
+            imageView.setOnClickListener(v -> new StfalconImageViewer.Builder<>(v.getContext(),
+                    new String[]{getItem(getBindingAdapterPosition()).getImageUrl()},
+                    (view, imageUrl) ->
+                            Picasso.with(view.getContext()).load(imageUrl).placeholder(imageView.getDrawable()).into(view))
+                    .withTransitionFrom(imageView)
+                    .withBackgroundColorResource(R.color.fullscreen_image_background)
+                    .withHiddenStatusBar(false)
+                    .show()
+            );
         }
 
         public void bind(String name, String imageUrl, ArrayList<Studio> studios) {
