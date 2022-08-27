@@ -24,7 +24,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class AdminAdapter extends FirebaseRecyclerAdapter<Address, AdminAdapter.ImageViewHolder> {//режим создания адреса
+public class AdminAdapter extends FirebaseRecyclerAdapter<Address, AdminAdapter.ImageViewHolder> {
     private final AdminAdapterEventListener listener;
 
     public AdminAdapter(FirebaseRecyclerOptions<Address> options, AdminAdapterEventListener listener) {

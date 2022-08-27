@@ -113,7 +113,7 @@ public class AdminActivity extends AppCompatActivity {
             finish();
         }
         if (item.getItemId() == R.id.makeNew) {
-            Intent intent = new Intent(this, AdressActivity.class);
+            Intent intent = new Intent(this, AddressActivity.class);
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);

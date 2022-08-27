@@ -86,7 +86,7 @@
         app:layout_constraintEnd_toEndOf="@+id/tableRow"
         app:layout_constraintStart_toStartOf="@+id/tableRow"
         app:layout_constraintTop_toBottomOf="@+id/tableRow"
-        tools:listitem="@layout/studio_table_item" />
+        tools:listitem="@layout/item_studio" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

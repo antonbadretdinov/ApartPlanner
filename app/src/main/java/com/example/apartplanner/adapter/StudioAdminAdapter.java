@@ -1,8 +1,6 @@
 package com.example.apartplanner.adapter;
 
 import android.graphics.Color;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -43,7 +41,7 @@ public class StudioAdminAdapter extends ListAdapter<Studio, StudioAdminAdapter.S
     @NonNull
     @Override
     public StudioViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.studio_table_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_studio, parent, false);
         return new StudioViewHolder(view);
     }
 

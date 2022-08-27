@@ -34,7 +34,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class AdressActivity extends AppCompatActivity {
+public class AddressActivity extends AppCompatActivity {
 
     private static final int PICK_IMAGE_REQUEST = 1;
     Uri imgUri;
@@ -59,7 +59,7 @@ public class AdressActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.adress_item);
+        setContentView(R.layout.activity_address);
 
 
         countOfStudios = findViewById(R.id.editCountStudios);
@@ -91,7 +91,7 @@ public class AdressActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (uploadTask != null && uploadTask.isInProgress()) {
-                    Toast.makeText(AdressActivity.this, "Просходит загрузка", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddressActivity.this, "Просходит загрузка", Toast.LENGTH_SHORT).show();
                 } else {
                     uploadFile();
                     if (!countOfStudios.getText().toString().equals("")) {
@@ -123,7 +123,7 @@ public class AdressActivity extends AppCompatActivity {
                 data != null && data.getData() != null) {
             imgUri = data.getData();
 
-            Picasso.with(AdressActivity.this).load(imgUri).into(adressImg);
+            Picasso.with(AddressActivity.this).load(imgUri).into(adressImg);
         }
     }
 
@@ -140,7 +140,7 @@ public class AdressActivity extends AppCompatActivity {
             uploadTask = fileReference.putFile(imgUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(AdressActivity.this, "Загружено", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AddressActivity.this, "Загружено", Toast.LENGTH_SHORT).show();
                             fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
@@ -157,7 +157,7 @@ public class AdressActivity extends AppCompatActivity {
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(AdressActivity.this, "Ошибка загрузки", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AddressActivity.this, "Ошибка загрузки", Toast.LENGTH_SHORT).show();
                         }
                     });
         }
