@@ -36,7 +36,7 @@ public class LogInActivity extends AppCompatActivity {
         });
 
         logInBtn.setOnClickListener(view -> {
-            if (edMail.getText() != null && edPassword.getText() != null) {
+            if (!edMail.getText().toString().equals("") && !edPassword.getText().toString().equals("")) {
                 fAuth.signInWithEmailAndPassword(edMail.getText().toString(), edPassword.getText().toString()).addOnSuccessListener(authResult -> {
                     Toast.makeText(getApplicationContext(), "Вы зашли, как " + Objects.requireNonNull(fAuth.getCurrentUser()).getEmail(), Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getApplicationContext(), UserActivity.class);
@@ -45,6 +45,8 @@ public class LogInActivity extends AppCompatActivity {
                 }).addOnFailureListener(e ->
                         Toast.makeText(LogInActivity.this, "Ошибка входа, проверьте корректность адреса электронной почты или пароля", Toast.LENGTH_SHORT).show()
                 );
+            }else{
+                Toast.makeText(this, "Заполните пустые поля", Toast.LENGTH_SHORT).show();
             }
         });
     }

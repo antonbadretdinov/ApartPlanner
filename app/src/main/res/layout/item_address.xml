@@ -52,7 +52,7 @@
 
         <TextView
             android:background="@drawable/borders"
-            android:paddingHorizontal="10dp"
+            android:paddingHorizontal="9dp"
             android:paddingVertical="15dp"
             android:text="@string/studioNumber"
             android:textColor="@color/black"
@@ -60,7 +60,7 @@
 
         <TextView
             android:background="@drawable/borders"
-            android:paddingHorizontal="10dp"
+            android:paddingHorizontal="9dp"
             android:paddingVertical="15dp"
             android:text="@string/studioSize"
             android:textColor="@color/black"
@@ -68,7 +68,7 @@
 
         <TextView
             android:background="@drawable/borders"
-            android:paddingHorizontal="10dp"
+            android:paddingHorizontal="9dp"
             android:paddingVertical="15dp"
             android:text="@string/studioPrice"
             android:textColor="@color/black"

@@ -91,16 +91,11 @@ public class AddressActivity extends AppCompatActivity {
                 if (uploadTask != null && uploadTask.isInProgress()) {
                     Toast.makeText(AddressActivity.this, "Просходит загрузка", Toast.LENGTH_SHORT).show();
                 } else {
-                    uploadFile();
-                    if (!countOfStudios.getText().toString().equals("")) {
-                        for (int i = 0; i < Integer.parseInt(countOfStudios.getText().toString()); i++) {
-                            studios.add(new Studio(i, "Студия " + (i + 1), "", ""));
-                        }
+                    if (!countOfStudios.getText().toString().equals("")&&!addressEditText.getText().toString().equals("")) {
+                        uploadFile();
+                    }else{
+                        Toast.makeText(AddressActivity.this, "Заполните пустые поля", Toast.LENGTH_SHORT).show();
                     }
-                    //загрузить студии
-                    /*Intent intent = new Intent(AddressActivity.this,AdminActivity.class);
-                    intent.putExtra("countOfStudios",countOfStudios.getText().toString());
-                    startActivity(intent);*/
                 }
             }
         });
@@ -134,7 +129,6 @@ public class AddressActivity extends AppCompatActivity {
     private void uploadFile() {
         if (imgUri != null) {
             StorageReference fileReference = storageReference.child(System.currentTimeMillis() + "." + getFileExtension(imgUri));
-
             uploadTask = fileReference.putFile(imgUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -143,6 +137,9 @@ public class AddressActivity extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(Uri uri) {
                                     String url = uri.toString();
+                                    for (int i = 0; i < Integer.parseInt(countOfStudios.getText().toString()); i++) {
+                                        studios.add(new Studio(i, "Студия " + (i + 1), "", ""));
+                                    }
                                     Address upload = new Address(addressEditText.getText().toString().trim(), url, studios);
                                     String uploadId = databaseReference.push().getKey();
                                     assert uploadId != null;
@@ -158,7 +155,10 @@ public class AddressActivity extends AppCompatActivity {
                             Toast.makeText(AddressActivity.this, "Ошибка загрузки", Toast.LENGTH_SHORT).show();
                         }
                     });
+        }else{
+            Toast.makeText(this, "Выберите файл", Toast.LENGTH_SHORT).show();
         }
+        studios.clear();
     }
 
     @Override
@@ -170,8 +170,8 @@ public class AddressActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.logOut) {
-//            Intent intent = new Intent(this, AdminActivity.class);
-//            startActivity(intent);
+/*            Intent intent = new Intent(this, AdminActivity.class);
+            startActivity(intent);*/
             finish();
         }
         return super.onOptionsItemSelected(item);

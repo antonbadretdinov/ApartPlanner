@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.widget.TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true">
@@ -12,6 +12,7 @@
 
         <EditText
             android:id="@+id/editNameStudio"
+            android:maxLength="9"
             android:background="@drawable/borders"
             android:focusable="true"
             android:focusableInTouchMode="true"
@@ -19,7 +20,7 @@
             android:imeOptions="actionDone"
             android:importantForAutofill="no"
             android:inputType="text"
-            android:paddingHorizontal="10dp"
+            android:paddingHorizontal="9dp"
             android:paddingVertical="15dp"
             android:singleLine="true"
             android:textColor="@color/black"
@@ -27,14 +28,15 @@
 
         <EditText
             android:id="@+id/editSizeStudio"
+            android:maxLength="8"
             android:background="@drawable/borders"
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:hint="@string/studioSize"
             android:imeOptions="actionDone"
             android:importantForAutofill="no"
-            android:inputType="number"
-            android:paddingHorizontal="10dp"
+            android:inputType="numberDecimal"
+            android:paddingHorizontal="9dp"
             android:paddingVertical="15dp"
             android:singleLine="true"
             android:textColor="@color/black"
@@ -42,6 +44,7 @@
 
         <EditText
             android:id="@+id/editStateStudio"
+            android:maxLength="8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/borders"
@@ -51,7 +54,7 @@
             android:imeOptions="actionDone"
             android:importantForAutofill="no"
             android:inputType="numberDecimal"
-            android:paddingHorizontal="10dp"
+            android:paddingHorizontal="9dp"
             android:paddingVertical="15dp"
             android:singleLine="true"
             android:textColor="@color/black"

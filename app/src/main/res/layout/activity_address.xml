@@ -18,6 +18,7 @@
 
     <EditText
         android:id="@+id/addressEditText"
+        android:maxLength="50"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -45,7 +46,7 @@
         android:id="@+id/btnChooseFile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="25dp"
         android:text="@string/btnChooseFile"
         app:layout_constraintStart_toStartOf="@+id/imageAddress"
         app:layout_constraintTop_toBottomOf="@+id/editCountStudios" />
@@ -54,25 +55,42 @@
         android:id="@+id/uploadBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="25dp"
         android:text="@string/saveFile"
         app:layout_constraintEnd_toEndOf="@+id/imageAddress"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/btnChooseFile"
         app:layout_constraintTop_toBottomOf="@+id/editCountStudios" />
 
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:text="Введите кол-во студий:"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/editCountStudios"
+        app:layout_constraintEnd_toStartOf="@+id/editCountStudios"
+        app:layout_constraintStart_toStartOf="@+id/imageAddress"
+        app:layout_constraintTop_toTopOf="@+id/editCountStudios" />
+
     <EditText
         android:id="@+id/editCountStudios"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_width="87dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="25dp"
+        android:autofillHints=""
         android:ems="12"
-        android:hint="@string/inputCountOf"
+        android:gravity="center"
         android:inputType="number"
+        android:maxLength="3"
         android:minHeight="48dp"
         android:textColorHint="#757575"
         app:layout_constraintEnd_toEndOf="@+id/imageAddress"
-        app:layout_constraintStart_toStartOf="@+id/imageAddress"
-        app:layout_constraintTop_toBottomOf="@+id/imageAddress" />
+        app:layout_constraintTop_toBottomOf="@+id/imageAddress"
+        tools:ignore="SpeakableTextPresentCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
