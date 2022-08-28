@@ -1,6 +1,5 @@
 package com.example.apartplanner.adapter;
 
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,9 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.example.apartplanner.R;
-import com.example.apartplanner.UserActivity;
 import com.example.apartplanner.model.Address;
 import com.example.apartplanner.model.Studio;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -20,7 +17,6 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseError;
 import com.squareup.picasso.Picasso;
 import com.stfalcon.imageviewer.StfalconImageViewer;
-import com.stfalcon.imageviewer.loader.ImageLoader;
 
 import java.util.ArrayList;
 

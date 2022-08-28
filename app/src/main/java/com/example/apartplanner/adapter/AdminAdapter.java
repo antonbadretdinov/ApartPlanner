@@ -68,7 +68,6 @@ public class AdminAdapter extends FirebaseRecyclerAdapter<Address, AdminAdapter.
 
         public ImageViewHolder(@NonNull View itemView) {
             super(itemView);
-
             itemView.setOnCreateContextMenuListener(this);
             imageView = itemView.findViewById(R.id.imageUser);
             textViewName = itemView.findViewById(R.id.addressUserText);
@@ -78,7 +77,6 @@ public class AdminAdapter extends FirebaseRecyclerAdapter<Address, AdminAdapter.
                     listener.onStudioUpdate(getRef(getBindingAdapterPosition()), studio)
             );
             studioRecycler.setAdapter(studioAdminAdapter);
-
             imageView.setOnClickListener(v -> new StfalconImageViewer.Builder<>(v.getContext(),
                     new String[]{getItem(getBindingAdapterPosition()).getImageUrl()},
                     (view, imageUrl) ->
