@@ -57,6 +57,7 @@
         android:layout_height="wrap_content">
 
         <TextView
+            android:layout_width="match_parent"
             android:background="@drawable/borders"
             android:layout_gravity="center"
             android:paddingHorizontal="10dp"
@@ -66,6 +67,7 @@
             android:textSize="20sp" />
 
         <TextView
+            android:layout_width="match_parent"
             android:background="@drawable/borders"
             android:layout_gravity="center"
             android:paddingHorizontal="10dp"
@@ -75,6 +77,7 @@
             android:textSize="20sp" />
 
         <TextView
+            android:layout_width="match_parent"
             android:background="@drawable/borders"
             android:paddingHorizontal="10dp"
             android:paddingVertical="15dp"
