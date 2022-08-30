@@ -13,6 +13,7 @@
         android:layout_marginTop="8dp"
         android:autofillHints=""
         android:hint="@string/addressHintText"
+        android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -42,17 +43,23 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.5" />
 
-    <TableRow
-        android:id="@+id/tableRow"
-        android:layout_width="wrap_content"
+    <TableLayout
+        android:id="@+id/table"
+        android:stretchColumns="*"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/guideline2">
+    <TableRow
+        android:id="@+id/tableRow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
         <TextView
             android:background="@drawable/borders"
-            android:paddingHorizontal="9dp"
+            android:layout_gravity="center"
+            android:paddingHorizontal="10dp"
             android:paddingVertical="15dp"
             android:text="@string/studioNumber"
             android:textColor="@color/black"
@@ -60,7 +67,8 @@
 
         <TextView
             android:background="@drawable/borders"
-            android:paddingHorizontal="9dp"
+            android:layout_gravity="center"
+            android:paddingHorizontal="10dp"
             android:paddingVertical="15dp"
             android:text="@string/studioSize"
             android:textColor="@color/black"
@@ -68,12 +76,15 @@
 
         <TextView
             android:background="@drawable/borders"
-            android:paddingHorizontal="9dp"
+            android:paddingHorizontal="10dp"
             android:paddingVertical="15dp"
+            android:layout_gravity="center"
             android:text="@string/studioPrice"
             android:textColor="@color/black"
             android:textSize="20sp" />
     </TableRow>
+</TableLayout>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerStudio"
@@ -83,9 +94,9 @@
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/tableRow"
-        app:layout_constraintStart_toStartOf="@+id/tableRow"
-        app:layout_constraintTop_toBottomOf="@+id/tableRow"
+        app:layout_constraintEnd_toEndOf="@+id/table"
+        app:layout_constraintStart_toStartOf="@+id/table"
+        app:layout_constraintTop_toBottomOf="@+id/table"
         tools:listitem="@layout/item_studio" />
 
 

@@ -1,35 +1,27 @@
 package com.example.apartplanner;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.viewpager2.widget.ViewPager2;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.apartplanner.adapter.AddressAdapter;
 import com.example.apartplanner.model.Address;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import com.squareup.picasso.Picasso;
-import com.stfalcon.imageviewer.StfalconImageViewer;
-import com.stfalcon.imageviewer.loader.ImageLoader;
 
 import java.util.Objects;
 
@@ -98,22 +90,14 @@ public class UserActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.logIn) {
 
             DocumentReference df = fStore.collection("Users").document(Objects.requireNonNull(fAuth.getCurrentUser()).getUid());
-            df.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                @Override
-                public void onSuccess(DocumentSnapshot documentSnapshot) {
-                    if(Boolean.TRUE.equals(documentSnapshot.getBoolean("isAdmin"))){
-                        Intent intent = new Intent(getApplicationContext(), AdminActivity.class);
-                        startActivity(intent);
-                    }else{
-                        Toast.makeText(UserActivity.this, "Ошибка доступа", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
+            df.get().addOnSuccessListener(documentSnapshot -> {
+                if(Boolean.TRUE.equals(documentSnapshot.getBoolean("isAdmin"))){
+                    Intent intent = new Intent(getApplicationContext(), AdminActivity.class);
+                    startActivity(intent);
+                }else{
                     Toast.makeText(UserActivity.this, "Ошибка доступа", Toast.LENGTH_SHORT).show();
                 }
-            });
+            }).addOnFailureListener(e -> Toast.makeText(UserActivity.this, "Ошибка доступа", Toast.LENGTH_SHORT).show());
 
         }
         return super.onOptionsItemSelected(item);

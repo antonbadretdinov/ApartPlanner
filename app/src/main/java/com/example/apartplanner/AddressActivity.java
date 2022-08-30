@@ -1,18 +1,16 @@
 package com.example.apartplanner;
 
-import android.content.ContentResolver;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,16 +19,16 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.example.apartplanner.model.Address;
 import com.example.apartplanner.model.Studio;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
-import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -79,23 +77,19 @@ public class AddressActivity extends AppCompatActivity {
         addressEditText = findViewById(R.id.addressEditText);
 
 
-        chooseImageBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openFileChooser();
-            }
-        });
-        uploadBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (uploadTask != null && uploadTask.isInProgress()) {
-                    Toast.makeText(AddressActivity.this, "Просходит загрузка", Toast.LENGTH_SHORT).show();
-                } else {
-                    if (!countOfStudios.getText().toString().equals("")&&!addressEditText.getText().toString().equals("")) {
+        chooseImageBtn.setOnClickListener(view -> openFileChooser());
+        uploadBtn.setOnClickListener(view -> {
+            if (uploadTask != null && uploadTask.isInProgress()) {
+                Toast.makeText(AddressActivity.this, "Просходит загрузка", Toast.LENGTH_SHORT).show();
+            } else {
+                if (!countOfStudios.getText().toString().equals("")&&!addressEditText.getText().toString().equals("")) {
+                    try {
                         uploadFile();
-                    }else{
-                        Toast.makeText(AddressActivity.this, "Заполните пустые поля", Toast.LENGTH_SHORT).show();
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
+                }else{
+                    Toast.makeText(AddressActivity.this, "Заполните пустые поля", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -120,41 +114,40 @@ public class AddressActivity extends AppCompatActivity {
         }
     }
 
-    private String getFileExtension(Uri uri) {
-        ContentResolver contentResolver = getContentResolver();
-        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
-        return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
+
+    private byte[] compressImg(Uri uri) throws IOException {
+        InputStream imageStream;
+        imageStream = getContentResolver().openInputStream(uri);
+
+        Bitmap bitmap = BitmapFactory.decodeStream(imageStream);
+
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+
+        bitmap.compress(Bitmap.CompressFormat.JPEG,50,stream);
+        byte[] bitmapData = stream.toByteArray();
+        stream.close();
+        return bitmapData;
     }
 
-    private void uploadFile() {
+    private void uploadFile() throws IOException {
         if (imgUri != null) {
-            StorageReference fileReference = storageReference.child(System.currentTimeMillis() + "." + getFileExtension(imgUri));
-            uploadTask = fileReference.putFile(imgUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(AddressActivity.this, "Загружено", Toast.LENGTH_SHORT).show();
-                            fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                @Override
-                                public void onSuccess(Uri uri) {
-                                    String url = uri.toString();
-                                    for (int i = 0; i < Integer.parseInt(countOfStudios.getText().toString()); i++) {
-                                        studios.add(new Studio(i, "Студия " + (i + 1), "", ""));
-                                    }
-                                    Address upload = new Address(addressEditText.getText().toString().trim(), url, studios);
-                                    String uploadId = databaseReference.push().getKey();
-                                    assert uploadId != null;
-                                    databaseReference.child(uploadId).setValue(upload);
-                                }
-                            });
+            StorageReference fileReference = storageReference.child(System.currentTimeMillis() + ".jpg");
+            uploadTask = fileReference.putBytes(compressImg(imgUri)).addOnSuccessListener(taskSnapshot -> {
+                Toast.makeText(AddressActivity.this, "Загружено", Toast.LENGTH_SHORT).show();
+                fileReference.getDownloadUrl().addOnSuccessListener(uri -> {
+                    String url = uri.toString();
+                    for (int i = 0; i < Integer.parseInt(countOfStudios.getText().toString()); i++) {
+                        studios.add(new Studio(i, "Студия " + (i + 1), "", ""));
+                    }
+                    Address upload = new Address(addressEditText.getText().toString().trim(), url, studios);
+                    String uploadId = databaseReference.push().getKey();
+                    assert uploadId != null;
+                    databaseReference.child(uploadId).setValue(upload);
+                });
 
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(AddressActivity.this, "Ошибка загрузки", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+            })
+                    .addOnFailureListener(e ->
+                            Toast.makeText(AddressActivity.this, "Ошибка загрузки", Toast.LENGTH_SHORT).show());
         }else{
             Toast.makeText(this, "Выберите файл", Toast.LENGTH_SHORT).show();
         }
@@ -170,8 +163,6 @@ public class AddressActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.logOut) {
-/*            Intent intent = new Intent(this, AdminActivity.class);
-            startActivity(intent);*/
             finish();
         }
         return super.onOptionsItemSelected(item);

@@ -108,8 +108,6 @@ public class AdminActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.logOut) {
-//            Intent intent = new Intent(this, UserActivity.class);
-//            startActivity(intent);
             finish();
         }
         if (item.getItemId() == R.id.makeNew) {

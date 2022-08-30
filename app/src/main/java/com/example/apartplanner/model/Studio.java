@@ -28,15 +28,6 @@ public class Studio {
     }
 
     public Studio(int id, @NonNull String name, @NonNull String size, @NonNull String state) {
-        /*if (name.trim().equals("")) {
-            name = "No name";
-        }
-        if (size.trim().equals("")) {
-            size = "No size";
-        }
-        if (state.trim().equals("")) {
-            size = "No state";
-        }*/
         this.id = id;
         this.name = name;
         this.size = size;
