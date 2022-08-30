@@ -10,56 +10,72 @@
         android:id="@+id/tableRowUser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/borders">
+            <EditText
+                android:id="@+id/editNameStudio"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:textAlignment="center"
+                android:maxLength="9"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:hint="@string/studioNumber"
+                android:imeOptions="actionDone"
+                android:importantForAutofill="no"
+                android:inputType="textNoSuggestions"
+                android:singleLine="true"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:background="@android:color/transparent" />
+        </LinearLayout>
 
-        <EditText
-            android:id="@+id/editNameStudio"
-            android:maxLength="9"
-            android:background="@drawable/borders"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:hint="@string/studioNumber"
-            android:imeOptions="actionDone"
-            android:importantForAutofill="no"
-            android:inputType="text"
-            android:paddingHorizontal="10dp"
-            android:paddingVertical="15dp"
-            android:singleLine="true"
-            android:textColor="@color/black"
-            android:textSize="20sp" />
-
+        <LinearLayout
+            android:paddingVertical="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/borders">
         <EditText
             android:id="@+id/editSizeStudio"
             android:maxLength="8"
-            android:background="@drawable/borders"
+            android:textAlignment="center"
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:hint="@string/studioSize"
             android:imeOptions="actionDone"
             android:importantForAutofill="no"
             android:inputType="numberDecimal"
-            android:paddingHorizontal="10dp"
-            android:paddingVertical="15dp"
             android:singleLine="true"
             android:textColor="@color/black"
-            android:textSize="20sp" />
+            android:textSize="18sp"
+            android:background="@android:color/transparent"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"/>
+        </LinearLayout>
 
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/borders">
         <EditText
             android:id="@+id/editStateStudio"
             android:maxLength="8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/borders"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:hint="@string/studioPrice"
             android:imeOptions="actionDone"
             android:importantForAutofill="no"
             android:inputType="numberDecimal"
-            android:paddingHorizontal="10dp"
-            android:paddingVertical="15dp"
+            android:textAlignment="center"
             android:singleLine="true"
             android:textColor="@color/black"
-            android:textSize="20sp" />
-
+            android:textSize="18sp"
+            android:background="@android:color/transparent" />
+        </LinearLayout>
     </TableRow>
 </android.widget.TableLayout>
