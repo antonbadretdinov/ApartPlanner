@@ -10,23 +10,23 @@
         android:id="@+id/registrMail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="208dp"
+        android:autofillHints=""
         android:ems="10"
         android:hint="@string/e_mail"
-        android:textColorHint="#757575"
         android:inputType="textEmailAddress"
         android:minHeight="48dp"
+        android:textColorHint="#757575"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:autofillHints="" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/passwordRegistr"
         android:layout_width="210dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:autofillHints=""
         android:ems="25"
         android:hint="@string/password"
@@ -42,7 +42,8 @@
         android:id="@+id/btnRegistr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="30dp"
+        android:backgroundTint="@color/secondaryDarkColor"
         android:text="@string/signUp"
         app:layout_constraintEnd_toEndOf="@+id/passwordRegistr"
         app:layout_constraintStart_toStartOf="@+id/passwordRegistr"
@@ -57,4 +58,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordRegistr" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="211dp"
+        android:layout_height="123dp"
+        app:layout_constraintBottom_toTopOf="@+id/registrMail"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_logo_second" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,8 +7,9 @@
     <string name="studioPrice">Цена,тыс.руб</string>
     <string name="saveFile">Сохранить</string>
     <string name="logOut">Выйти</string>
-    <string name="enterKeyHintText">Введите ключ доступа</string>
     <string name="logIn">Войти</string>
+    <string name="enterKeyHintText">Введите ключ доступа</string>
+    <string name="adminMode">Режим администратора</string>
     <string name="makeNew">Создать новый адрес</string>
     <string name="inputCountOf">Введите кол-во студий</string>
     <string name="address">Address</string>

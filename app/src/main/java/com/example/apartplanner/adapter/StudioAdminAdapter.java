@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TableRow;
 
+import androidx.annotation.ColorRes;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
@@ -101,10 +102,10 @@ public class StudioAdminAdapter extends ListAdapter<Studio, StudioAdminAdapter.S
         private void changeRowColor(String state) {
             switch (state) {
                 case "продано":
-                    tableRow.setBackgroundColor(Color.GREEN);
+                    tableRow.setBackgroundColor(Color.parseColor("#4ECEA4"));
                     break;
                 case "бронь":
-                    tableRow.setBackgroundColor(Color.YELLOW);
+                    tableRow.setBackgroundColor(Color.parseColor("#ffcf5c"));
                     break;
                 default:
                     tableRow.setBackgroundColor(Color.WHITE);

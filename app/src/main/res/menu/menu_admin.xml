@@ -5,10 +5,10 @@
         android:title="@string/makeNew"
         android:orderInCategory="100"
         app:showAsAction="always"
-        android:icon="@drawable/ic_make_new_button"/>
+        android:icon="@drawable/ic_plus_btn"/>
     <item android:id="@+id/logOut"
         android:title="@string/logOut"
         android:orderInCategory="100"
         app:showAsAction="always"
-        android:icon="@drawable/ic_log_out_button"/>
+        android:icon="@drawable/ic_back_btn"/>
 </menu>

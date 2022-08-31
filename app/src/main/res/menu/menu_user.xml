@@ -2,8 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/logIn"
-        android:title="@string/logIn"
+        android:title="@string/adminMode"
         android:orderInCategory="100"
         app:showAsAction="always"
-        android:icon="@drawable/ic_login_button"/>
+        android:icon="@drawable/ic_edit_btn"/>
 </menu>

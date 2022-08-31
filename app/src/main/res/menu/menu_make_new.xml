@@ -5,5 +5,5 @@
         android:title="@string/logOut"
         android:orderInCategory="100"
         app:showAsAction="always"
-        android:icon="@drawable/ic_log_out_button"/>
+        android:icon="@drawable/ic_back_btn"/>
 </menu>
