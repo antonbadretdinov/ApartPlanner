@@ -77,7 +77,7 @@ public class StudioAdapter extends ListAdapter<Studio, StudioAdapter.StudioViewH
         private void changeRowColor(String state) {
             switch (state) {
                 case "продано":
-                    tableRow.setBackgroundColor(Color.parseColor("#4ECEA4"));
+                    tableRow.setBackgroundColor(Color.parseColor("#87AEE4"));
                     break;
                 case "бронь":
                     tableRow.setBackgroundColor(Color.parseColor("#ffcf5c"));
