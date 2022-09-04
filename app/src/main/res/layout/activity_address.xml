@@ -6,6 +6,33 @@
     android:layout_height="match_parent"
     tools:context=".AddressActivity">
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineVerticalLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintGuide_percent="0.15"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineVerticalRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintGuide_percent="0.85"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintGuide_percent="0.6"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -34,40 +61,18 @@
 
     <ImageView
         android:id="@+id/imageAddress"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addressEditText"
         app:srcCompat="@drawable/ic_launcher_background" />
 
-    <Button
-        android:id="@+id/btnChooseFile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:backgroundTint="@color/secondaryColor"
-        android:text="@string/btnChooseFile"
-        app:layout_constraintEnd_toEndOf="@+id/imageAddress"
-        app:layout_constraintStart_toStartOf="@+id/imageAddress"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-    <Button
-        android:id="@+id/uploadBtn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/secondaryColor"
-        android:text="@string/saveFile"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/btnChooseFile"
-        app:layout_constraintStart_toStartOf="@+id/btnChooseFile"
-        app:layout_constraintTop_toBottomOf="@+id/btnChooseFile"
-        app:layout_constraintVertical_bias="0.3" />
-
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:gravity="center"
         android:text="@string/enter_count_of_studios"
@@ -77,12 +82,12 @@
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/editCountStudios"
         app:layout_constraintEnd_toStartOf="@+id/editCountStudios"
-        app:layout_constraintStart_toStartOf="@+id/imageAddress"
+        app:layout_constraintStart_toStartOf="@+id/guidelineVerticalLeft"
         app:layout_constraintTop_toTopOf="@+id/editCountStudios" />
 
     <EditText
         android:id="@+id/editCountStudios"
-        android:layout_width="87dp"
+        android:layout_width="50dp"
         android:layout_height="0dp"
         android:layout_marginTop="20dp"
         android:autofillHints=""
@@ -92,8 +97,33 @@
         android:maxLength="3"
         android:minHeight="48dp"
         android:textColorHint="#757575"
-        app:layout_constraintEnd_toEndOf="@+id/imageAddress"
-        app:layout_constraintTop_toBottomOf="@+id/imageAddress"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineVerticalRight"
+        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintTop_toTopOf="@+id/guideline2"
         tools:ignore="SpeakableTextPresentCheck" />
+
+    <Button
+        android:id="@+id/btnChooseFile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/secondaryColor"
+        android:text="@string/btnChooseFile"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <Button
+        android:id="@+id/uploadBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:backgroundTint="@color/secondaryColor"
+        android:text="@string/saveFile"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/btnChooseFile"
+        app:layout_constraintStart_toStartOf="@+id/btnChooseFile"
+        app:layout_constraintTop_toBottomOf="@+id/btnChooseFile" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
