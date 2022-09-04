@@ -17,4 +17,5 @@
     <string name="password">Пароль</string>
     <string name="e_mail">Электронная почта</string>
     <string name="helpTxt">Пароль должен содержать мин. 6 символов</string>
+    <string name="enter_count_of_studios">Введите кол-во студий:</string>
 </resources>

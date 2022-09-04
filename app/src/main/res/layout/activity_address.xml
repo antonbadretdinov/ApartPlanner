@@ -45,31 +45,32 @@
     <Button
         android:id="@+id/btnChooseFile"
         android:layout_width="wrap_content"
-        android:backgroundTint="@color/secondaryColor"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
+        android:backgroundTint="@color/secondaryColor"
         android:text="@string/btnChooseFile"
+        app:layout_constraintEnd_toEndOf="@+id/imageAddress"
         app:layout_constraintStart_toStartOf="@+id/imageAddress"
-        app:layout_constraintTop_toBottomOf="@+id/editCountStudios" />
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <Button
         android:id="@+id/uploadBtn"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/secondaryColor"
-        android:layout_marginTop="20dp"
         android:text="@string/saveFile"
-        app:layout_constraintEnd_toEndOf="@+id/imageAddress"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/btnChooseFile"
-        app:layout_constraintTop_toBottomOf="@+id/editCountStudios" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/btnChooseFile"
+        app:layout_constraintStart_toStartOf="@+id/btnChooseFile"
+        app:layout_constraintTop_toBottomOf="@+id/btnChooseFile"
+        app:layout_constraintVertical_bias="0.3" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:gravity="center"
-        android:text="Введите кол-во студий:"
+        android:text="@string/enter_count_of_studios"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="#000000"
