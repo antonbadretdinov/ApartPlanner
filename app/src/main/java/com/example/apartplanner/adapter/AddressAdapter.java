@@ -1,6 +1,9 @@
 package com.example.apartplanner.adapter;
 
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -15,6 +18,7 @@ import com.example.apartplanner.model.Studio;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.squareup.picasso.Picasso;
 import com.stfalcon.imageviewer.StfalconImageViewer;
 
@@ -54,7 +58,8 @@ public class AddressAdapter extends FirebaseRecyclerAdapter<Address, AddressAdap
         listener.onError(e);
     }
 
-    public class AddressViewHolder extends RecyclerView.ViewHolder {
+    public class AddressViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener,
+            MenuItem.OnMenuItemClickListener{
 
         private final TextView textViewName;
         private final ImageView imageView;
@@ -63,6 +68,7 @@ public class AddressAdapter extends FirebaseRecyclerAdapter<Address, AddressAdap
         public AddressViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            itemView.setOnCreateContextMenuListener(this);
             imageView = itemView.findViewById(R.id.imageUser);
             textViewName = itemView.findViewById(R.id.addressUserText);
             RecyclerView studioRecycler = itemView.findViewById(R.id.recyclerStudio);
@@ -79,7 +85,9 @@ public class AddressAdapter extends FirebaseRecyclerAdapter<Address, AddressAdap
                     .withHiddenStatusBar(false)
                     .show()
             );
+
         }
+
 
         public void bind(String name, String imageUrl, ArrayList<Studio> studios) {
             textViewName.setText(name);
@@ -91,12 +99,34 @@ public class AddressAdapter extends FirebaseRecyclerAdapter<Address, AddressAdap
 
             studioAdapter.submitList(studios);
         }
+
+        @Override
+        public boolean onMenuItemClick(MenuItem menuItem) {
+            if(listener!=null){
+                int position = getBindingAdapterPosition();
+                if (position != RecyclerView.NO_POSITION) {
+                    if (menuItem.getItemId() == 1) {
+                        listener.onGeneratePdf(getItem(position), getRef(position));
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        @Override
+        public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
+            MenuItem generatePdf = contextMenu.add(Menu.NONE, 1, 1, "Создать презентацию");
+            generatePdf.setOnMenuItemClickListener(this);
+        }
     }
 
     public interface AddressAdapterEventListener {
         void onDataChanged();
 
         void onError(DatabaseError e);
+
+        void onGeneratePdf(Address item, DatabaseReference ref);
     }
 
 }

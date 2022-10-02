@@ -47,6 +47,7 @@ public class RegistrationActivity extends AppCompatActivity {
                             userInfo.put("UserEmail", edMail.getText().toString());
                             userInfo.put("Password", edPassword.getText().toString());
                             userInfo.put("isAdmin", false);
+                            userInfo.put("isPdfAccess",false);
                             df.set(userInfo);
                             Intent intent = new Intent(getApplicationContext(), UserActivity.class);
                             Toast.makeText(getApplicationContext(), "Вы зашли, как " + firebaseAuth.getCurrentUser().getEmail(), Toast.LENGTH_SHORT).show();
